@@ -1,4 +1,33 @@
-# Getting Started with Create React App
+<h1 align="center">🚀 Desafio 5 - Trilhas Inova</h1>
+
+## 📚 Sobre o Projeto
+
+
+
+---
+
+## 🗂️ Estrutura do Projeto
+
+---
+
+## 🎯 Funcionalidades
+
+-   
+- 
+- 
+-  
+- 
+
+---
+
+
+
+
+
+## ⚙️ Como Executar
+
+
+# Este projeto foi criado com o Create React App.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
