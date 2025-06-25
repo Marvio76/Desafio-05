@@ -4,6 +4,7 @@ import Botao from '../components/Botao/Botao';
 import { useNavigate } from 'react-router-dom';
 import Sessao01 from '../components/Sessoes_home/sessao01';
 import Sessao02 from '../components/Sessoes_home/sessao02';
+import Sessao04 from '../components/Sessoes_home/sessao04';
 
 const Home = () => {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Home = () => {
             <Botao onClick={() => navigate('/cadastro')}>Cadastro</Botao>
             <Sessao01 />
             <Sessao02 />
+            <Sessao04 />
         </div>
     );
 };
