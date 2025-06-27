@@ -39,6 +39,16 @@ interface State {
         disponibilidades: { dataHora: string }[];
         disponibilidadeInput: string;
     };
+    editUsuario: Usuario | null;
+    editMedico: Medico | null;
+    editMedicoForm: {
+        nome: string;
+        email: string;
+        senha: string;
+        especialidadeNome: string;
+        disponibilidades: { dataHora: string }[];
+        disponibilidadeInput: string;
+    };
     mensagem: string;
     carregando: boolean;
 }
@@ -48,6 +58,16 @@ class Adm extends React.Component<{}, State> {
         usuarios: null,
         medicos: null,
         novoMedico: {
+            nome: '',
+            email: '',
+            senha: '',
+            especialidadeNome: '',
+            disponibilidades: [],
+            disponibilidadeInput: '',
+        },
+        editUsuario: null,
+        editMedico: null,
+        editMedicoForm: {
             nome: '',
             email: '',
             senha: '',
@@ -81,11 +101,7 @@ class Adm extends React.Component<{}, State> {
 
             if (!res.ok) throw new Error(`Erro ${res.status}`);
             const usuarios = await res.json();
-            if (Array.isArray(usuarios)) {
-                this.setState({ usuarios });
-            } else {
-                this.setState({ mensagem: 'Formato inesperado de usuários' });
-            }
+            this.setState({ usuarios });
         } catch (err) {
             console.error(err);
             this.setState({ mensagem: 'Erro ao carregar usuários' });
@@ -103,11 +119,7 @@ class Adm extends React.Component<{}, State> {
 
             if (!res.ok) throw new Error(`Erro ${res.status}`);
             const medicos = await res.json();
-            if (Array.isArray(medicos)) {
-                this.setState({ medicos });
-            } else {
-                this.setState({ mensagem: 'Formato inesperado de médicos' });
-            }
+            this.setState({ medicos });
         } catch (err) {
             console.error(err);
             this.setState({ mensagem: 'Erro ao carregar médicos' });
@@ -141,7 +153,6 @@ class Adm extends React.Component<{}, State> {
         }
     };
 
-
     deletarMedico = async (usuarioId: number) => {
         if (!window.confirm('Tem certeza que deseja deletar este médico?')) return;
 
@@ -159,7 +170,6 @@ class Adm extends React.Component<{}, State> {
             const data = await res.json();
 
             if (!res.ok) {
-                // Lê a mensagem de erro do backend
                 throw new Error(data?.error || `Erro ${res.status}`);
             }
 
@@ -167,7 +177,6 @@ class Adm extends React.Component<{}, State> {
                 mensagem: data.message || 'Médico deletado com sucesso!',
             });
 
-            // Atualiza listas após deleção
             await this.carregarMedicos();
             await this.carregarUsuarios();
         } catch (err: any) {
@@ -180,7 +189,150 @@ class Adm extends React.Component<{}, State> {
         }
     };
 
+    abrirEditarUsuario = (usuario: Usuario) => {
+        this.setState({ editUsuario: { ...usuario } });
+    };
 
+    handleEditUsuarioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        this.setState((prevState) => ({
+            editUsuario: prevState.editUsuario
+                ? { ...prevState.editUsuario, [name]: value }
+                : null,
+        }));
+    };
+
+    salvarUsuarioEditado = async () => {
+        if (!this.state.editUsuario) return;
+        const { id, nome, email, role } = this.state.editUsuario;
+
+        this.setState({ carregando: true, mensagem: '' });
+        try {
+            const res = await fetch(
+                `https://telemedicina-backend.vercel.app/api/admin/usuarios/${id}`,
+                {
+                    method: 'PUT',
+                    headers: this.getAuthHeaders(),
+                    body: JSON.stringify({ nome, email, role }),
+                }
+            );
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data?.error || `Erro ${res.status}`);
+            }
+
+            this.setState({
+                mensagem: data.message || 'Usuário atualizado com sucesso!',
+                editUsuario: null,
+            });
+            this.carregarUsuarios();
+        } catch (err: any) {
+            console.error(err);
+            this.setState({
+                mensagem: err.message || 'Erro ao atualizar usuário',
+            });
+        } finally {
+            this.setState({ carregando: false });
+        }
+    };
+
+    abrirEditarMedico = (medico: Medico) => {
+        this.setState({
+            editMedico: medico,
+            editMedicoForm: {
+                nome: medico.usuario.nome,
+                email: medico.usuario.email,
+                senha: '',
+                especialidadeNome: medico.especialidade.nome,
+                disponibilidades: medico.disponibilidades.map((d) => ({
+                    dataHora: d.dataHora,
+                })),
+                disponibilidadeInput: '',
+            },
+        });
+    };
+
+    handleEditMedicoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        this.setState((prevState) => ({
+            editMedicoForm: {
+                ...prevState.editMedicoForm,
+                [name]: value,
+            },
+        }));
+    };
+
+    adicionarDisponibilidadeEdit = () => {
+        const { disponibilidadeInput, disponibilidades } = this.state.editMedicoForm;
+        if (!disponibilidadeInput) return;
+
+        const dateUTC = new Date(disponibilidadeInput);
+        const isoString = dateUTC.toISOString();
+
+        this.setState((prevState) => ({
+            editMedicoForm: {
+                ...prevState.editMedicoForm,
+                disponibilidades: [
+                    ...disponibilidades,
+                    { dataHora: isoString },
+                ],
+                disponibilidadeInput: '',
+            },
+        }));
+    };
+
+    salvarMedicoEditado = async () => {
+        if (!this.state.editMedico) return;
+
+        const usuarioId = this.state.editMedico.usuario.id;
+        const {
+            nome,
+            email,
+            senha,
+            especialidadeNome,
+            disponibilidades,
+        } = this.state.editMedicoForm;
+
+        this.setState({ carregando: true, mensagem: '' });
+        try {
+            const res = await fetch(
+                `https://telemedicina-backend.vercel.app/api/admin/medicos/${usuarioId}`,
+                {
+                    method: 'PUT',
+                    headers: this.getAuthHeaders(),
+                    body: JSON.stringify({
+                        nome,
+                        email,
+                        senha: senha || undefined,
+                        especialidadeNome,
+                        disponibilidades,
+                    }),
+                }
+            );
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data?.error || `Erro ${res.status}`);
+            }
+
+            this.setState({
+                mensagem: data.message || 'Médico atualizado com sucesso!',
+                editMedico: null,
+            });
+            this.carregarMedicos();
+            this.carregarUsuarios();
+        } catch (err: any) {
+            console.error(err);
+            this.setState({
+                mensagem: err.message || 'Erro ao atualizar médico',
+            });
+        } finally {
+            this.setState({ carregando: false });
+        }
+    };
 
     handleNovoMedicoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -196,7 +348,6 @@ class Adm extends React.Component<{}, State> {
         const { disponibilidadeInput, disponibilidades } = this.state.novoMedico;
         if (!disponibilidadeInput) return;
 
-        // Converte para um Date em UTC
         const dateUTC = new Date(disponibilidadeInput);
         const isoString = dateUTC.toISOString();
 
@@ -205,7 +356,7 @@ class Adm extends React.Component<{}, State> {
                 ...prevState.novoMedico,
                 disponibilidades: [
                     ...disponibilidades,
-                    { dataHora: isoString }
+                    { dataHora: isoString },
                 ],
                 disponibilidadeInput: '',
             }
@@ -253,8 +404,35 @@ class Adm extends React.Component<{}, State> {
         }
     };
 
+    removerDisponibilidadeNovo = (index: number) => {
+        this.setState((prevState) => ({
+            novoMedico: {
+                ...prevState.novoMedico,
+                disponibilidades: prevState.novoMedico.disponibilidades.filter((_, i) => i !== index),
+            }
+        }));
+    };
+
+    removerDisponibilidadeEdit = (index: number) => {
+        this.setState((prevState) => ({
+            editMedicoForm: {
+                ...prevState.editMedicoForm,
+                disponibilidades: prevState.editMedicoForm.disponibilidades.filter((_, i) => i !== index),
+            }
+        }));
+    };
+
     render() {
-        const { usuarios, medicos, novoMedico, mensagem, carregando } = this.state;
+        const {
+            usuarios,
+            medicos,
+            novoMedico,
+            editUsuario,
+            editMedico,
+            editMedicoForm,
+            mensagem,
+            carregando,
+        } = this.state;
 
         return (
             <div className={style.admContainer}>
@@ -275,26 +453,65 @@ class Adm extends React.Component<{}, State> {
                             </tr>
                         </thead>
                         <tbody>
-                            {usuarios?.map((u) => (
-                                <tr key={u.id}>
-                                    <td>{u.nome}</td>
-                                    <td>{u.email}</td>
-                                    <td>{u.role}</td>
-                                    <td>
-                                        <button
-                                            className={style.btnDelete}
-                                            onClick={() => this.deletarUsuario(u.id)}
-                                            disabled={carregando}
-                                        >
-                                            Deletar
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                            {usuarios
+                                ?.filter((u) => u.role !== 'MEDICO') // Exclui médicos da lista de usuários
+                                .map((u) => (
+                                    <tr key={u.id}>
+                                        <td>{u.nome}</td>
+                                        <td>{u.email}</td>
+                                        <td>{u.role}</td>
+                                        <td>
+                                            <button
+                                                className={style.btnEdit}
+                                                onClick={() => this.abrirEditarUsuario(u)}
+                                            >
+                                                Editar
+                                            </button>
+                                            <button
+                                                className={style.btnDelete}
+                                                onClick={() => this.deletarUsuario(u.id)}
+                                                disabled={carregando}
+                                            >
+                                                Deletar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
                         </tbody>
                     </table>
                 </section>
 
+                {editUsuario && (
+                    <div className={style.modal}>
+                        <h3>Editar Usuário</h3>
+                        <input
+                            name="nome"
+                            value={editUsuario.nome}
+                            onChange={this.handleEditUsuarioChange}
+                            placeholder="Nome"
+                        />
+                        <input
+                            name="email"
+                            value={editUsuario.email}
+                            onChange={this.handleEditUsuarioChange}
+                            placeholder="Email"
+                        />
+                        <input
+                            name="role"
+                            value={editUsuario.role}
+                            onChange={this.handleEditUsuarioChange}
+                            placeholder="Role"
+                        />
+                        <button onClick={this.salvarUsuarioEditado}>
+                            Salvar
+                        </button>
+                        <button onClick={() => this.setState({ editUsuario: null })}>
+                            Cancelar
+                        </button>
+                    </div>
+                )}
+
+                {/* CADASTRO DE MÉDICO */}
                 <section className={style.section}>
                     <h2>Cadastro de Médico</h2>
                     <div className={style.formGroup}>
@@ -317,7 +534,16 @@ class Adm extends React.Component<{}, State> {
 
                         <ul>
                             {novoMedico.disponibilidades.map((d, i) => (
-                                <li key={i}>{new Date(d.dataHora).toLocaleString()}</li>
+                                <li key={i}>
+                                    {new Date(d.dataHora).toLocaleString()}
+                                    <button
+                                        type="button"
+                                        className={style.btnDeleteSmall}
+                                        onClick={() => this.removerDisponibilidadeNovo(i)}
+                                    >
+                                        Remover
+                                    </button>
+                                </li>
                             ))}
                         </ul>
 
@@ -325,7 +551,9 @@ class Adm extends React.Component<{}, State> {
                             Criar Médico
                         </button>
                     </div>
+                </section>
 
+                <section className={style.section}>
                     <h2>Médicos</h2>
                     <table className={style.table}>
                         <thead>
@@ -346,12 +574,24 @@ class Adm extends React.Component<{}, State> {
                                     <td>
                                         <ul>
                                             {m.disponibilidades.map((d) => (
-                                                <li key={d.id}>{new Date(d.dataHora).toLocaleString()}</li>
+                                                <li key={d.id}>
+                                                    {new Date(d.dataHora).toLocaleString()}
+                                                </li>
                                             ))}
                                         </ul>
                                     </td>
                                     <td>
-                                        <button className={style.btnDelete} onClick={() => this.deletarMedico(m.usuario.id)}>
+                                        <button
+                                            className={style.btnEdit}
+                                            onClick={() => this.abrirEditarMedico(m)}
+                                        >
+                                            Editar
+                                        </button>
+                                        <button
+                                            className={style.btnDelete}
+                                            onClick={() => this.deletarMedico(m.usuario.id)}
+                                            disabled={carregando}
+                                        >
                                             Deletar
                                         </button>
                                     </td>
@@ -360,6 +600,66 @@ class Adm extends React.Component<{}, State> {
                         </tbody>
                     </table>
                 </section>
+
+                {editMedico && (
+                    <div className={style.modal}>
+                        <h3>Editar Médico</h3>
+                        <input
+                            name="nome"
+                            value={editMedicoForm.nome}
+                            onChange={this.handleEditMedicoChange}
+                            placeholder="Nome"
+                        />
+                        <input
+                            name="email"
+                            value={editMedicoForm.email}
+                            onChange={this.handleEditMedicoChange}
+                            placeholder="Email"
+                        />
+                        <input
+                            name="senha"
+                            value={editMedicoForm.senha}
+                            type="password"
+                            onChange={this.handleEditMedicoChange}
+                            placeholder="Nova senha"
+                        />
+                        <input
+                            name="especialidadeNome"
+                            value={editMedicoForm.especialidadeNome}
+                            onChange={this.handleEditMedicoChange}
+                            placeholder="Especialidade"
+                        />
+                        <div className={style.disponibilidadeWrapper}>
+                            <input
+                                name="disponibilidadeInput"
+                                type="datetime-local"
+                                value={editMedicoForm.disponibilidadeInput}
+                                onChange={this.handleEditMedicoChange}
+                            />
+                            <button type="button" onClick={this.adicionarDisponibilidadeEdit}>
+                                Adicionar
+                            </button>
+                        </div>
+                        <ul>
+                            {editMedicoForm.disponibilidades.map((d, i) => (
+                                <li key={i}>
+                                    {new Date(d.dataHora).toLocaleString()}
+                                    <button
+                                        type="button"
+                                        className={style.btnDeleteSmall}
+                                        onClick={() => this.removerDisponibilidadeEdit(i)}
+                                    >
+                                        Remover
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                        <button onClick={this.salvarMedicoEditado}>Salvar</button>
+                        <button onClick={() => this.setState({ editMedico: null })}>
+                            Cancelar
+                        </button>
+                    </div>
+                )}
             </div>
         );
     }
