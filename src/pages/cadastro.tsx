@@ -1,9 +1,9 @@
 import React from 'react';
-
+import LoginComponent from '../components/login';
 const Cadastro = () => {
     return (
         <div>
-            <h1>Página de Cadastro</h1>
+            <LoginComponent />
         </div>
     );
 };

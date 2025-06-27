@@ -1,0 +1,76 @@
+.admContainer {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.mensagem {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: green;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table th,
+.table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+
+.btnDelete {
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.btnDelete:hover {
+    background-color: #c0392b;
+}
+
+.formGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.formGroup input {
+    padding: 6px;
+    flex: 1 1 200px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.disponibilidadeWrapper {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.btnCreate {
+    background-color: #3498db;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-top: 10px;
+}
+
+.btnCreate:hover {
+    background-color: #2980b9;
+}

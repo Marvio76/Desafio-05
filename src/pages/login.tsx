@@ -1,9 +1,10 @@
+import CadrastroComponent from '../components/cadastro';
 import React from 'react';
 
 const Login = () => {
     return (
         <div>
-            <h1>Página de Login</h1>
+            <CadrastroComponent />
         </div>
     );
 };
