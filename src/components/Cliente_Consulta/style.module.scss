@@ -93,3 +93,47 @@
     font-weight: bold;
     margin-bottom: 16px;
 }
+@media (max-width: 464px) {
+    .tableWrapper {
+        overflow-x: visible;
+    }
+
+    .table,
+    .table thead,
+    .table tbody,
+    .table tr,
+    .table th,
+    .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table tr {
+        margin-bottom: 18px;
+        border-radius: 8px;
+        background: #f9f9f9;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        padding: 8px 0;
+    }
+
+    .table td {
+        padding: 8px 12px;
+        text-align: left;
+        border: none;
+        position: relative;
+        font-size: 14px;
+    }
+
+    .table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #1976d2;
+        display: block;
+        margin-bottom: 2px;
+        font-size: 13px;
+    }
+}
