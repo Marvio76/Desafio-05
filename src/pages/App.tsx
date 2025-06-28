@@ -6,8 +6,6 @@ import Cadastro from './cadastro';
 import Consulta from './Consulta';
 import Medico from  './medico';
 import Adm from './adm';
-import TeleConsulta from './teleconsulta';
-import TeleMedico from './Telemedico';
 
 function App() {
   return (
@@ -19,8 +17,6 @@ function App() {
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/medico" element={<Medico />} />
         <Route path="/adm" element={<Adm />} />
-        <Route path="/teleconsulta" element={<TeleConsulta />} />
-        <Route path="/telemedico" element={<TeleMedico />} />
       </Routes>
     </Router>
   );

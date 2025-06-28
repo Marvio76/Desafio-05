@@ -14,7 +14,7 @@ const Sessao07: React.FC<Sessao07Props> = () => {
                         <div className={style.titleGroup}>
                             <div className={style.titleWithIcon}>
                                 <img className={style.iconLarge} src={bandeiraMaranhao} alt=''/>
-                                <div className={style.title}>Saúde em dia</div>
+                                <div className={style.title}>Telemedicina</div>
                             </div>
                             <div className={style.subtitle}>
                                 Sua saúde é a nossa especialidade, e sua satisfação é o nosso desejo

@@ -82,16 +82,9 @@ const Consulta: React.FC = () => {
                 'https://telemedicina-backend.vercel.app/api/consultas/listamedicos',
                 { headers: getAuthHeaders() }
             );
-            if (!res.ok) throw new Error(`Erro ${res.status}`);
             const data = await res.json();
-            console.log('Dados médicos:', data);
-            if (Array.isArray(data)) {
-                setMedicos(data);
-            } else if (Array.isArray(data.medicos)) {
-                setMedicos(data.medicos);
-            } else {
-                setMedicos([]);
-            }
+            if (!res.ok) throw new Error(`Erro ${res.status}`);
+            setMedicos(Array.isArray(data) ? data : data.medicos || []);
         } catch (err) {
             console.error('Erro fetchMedicos:', err);
             setMensagem('Erro ao buscar médicos');
@@ -109,9 +102,8 @@ const Consulta: React.FC = () => {
                 `https://telemedicina-backend.vercel.app/api/consultas/disponibilidades/${medicoId}`,
                 { headers: getAuthHeaders() }
             );
-            if (!res.ok) throw new Error(`Erro ${res.status}`);
             const data = await res.json();
-            console.log('Disponibilidades:', data);
+            if (!res.ok) throw new Error(`Erro ${res.status}`);
             setDisponibilidades(Array.isArray(data) ? data : []);
         } catch (err) {
             console.error('Erro fetchDisponibilidades:', err);
@@ -128,13 +120,10 @@ const Consulta: React.FC = () => {
         try {
             const res = await fetch(
                 'https://telemedicina-backend.vercel.app/api/consultas/minhas',
-                {
-                    headers: getAuthHeaders(),
-                }
+                { headers: getAuthHeaders() }
             );
-            if (!res.ok) throw new Error(`Erro ${res.status}`);
             const data = await res.json();
-            console.log('Dados consultas:', data);
+            if (!res.ok) throw new Error(`Erro ${res.status}`);
             setConsultas(Array.isArray(data) ? data : []);
         } catch (err) {
             console.error('Erro fetchConsultas:', err);
@@ -154,12 +143,9 @@ const Consulta: React.FC = () => {
         setCarregando(true);
         setMensagem('');
         try {
-            const disponibilidade = disponibilidades.find(
-                (d) => d.id === Number(disponibilidadeId)
-            );
+            const disponibilidade = disponibilidades.find(d => d.id === Number(disponibilidadeId));
             if (!disponibilidade) {
                 setMensagem('Horário inválido.');
-                setCarregando(false);
                 return;
             }
             const res = await fetch(
@@ -229,13 +215,7 @@ const Consulta: React.FC = () => {
 
     return (
         <div className={style.consultaContainer}>
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
-            >
+            <div className={style.header}>
                 <h1>Consultas</h1>
                 <button className={style.btnDeleteSmall} onClick={handleLogout}>
                     Sair
@@ -248,17 +228,13 @@ const Consulta: React.FC = () => {
             <section className={style.section}>
                 <h2>Agendar nova consulta</h2>
                 <form onSubmit={agendarConsulta} className={style.formGroup}>
-                    <select
-                        value={medicoId}
-                        onChange={(e) => setMedicoId(e.target.value)}
-                    >
+                    <select value={medicoId} onChange={(e) => setMedicoId(e.target.value)}>
                         <option value="">Selecione o médico</option>
-                        {Array.isArray(medicos) &&
-                            medicos.map((m) => (
-                                <option key={m.id} value={m.id}>
-                                    {m.usuario.nome} ({m.especialidade?.nome})
-                                </option>
-                            ))}
+                        {medicos.map((m) => (
+                            <option key={m.id} value={m.id}>
+                                {m.usuario.nome} ({m.especialidade?.nome})
+                            </option>
+                        ))}
                     </select>
 
                     <select
@@ -293,55 +269,41 @@ const Consulta: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {consultas.length === 0 && (
+                            {consultas.length === 0 ? (
                                 <tr>
-                                    <td colSpan={4}>
-                                        Nenhuma consulta agendada.
-                                    </td>
+                                    <td colSpan={4}>Nenhuma consulta agendada.</td>
                                 </tr>
+                            ) : (
+                                consultas.map((c) => (
+                                    <tr key={c.id}>
+                                        <td data-label="Médico">{c.medico.usuario.nome}</td>
+                                        <td data-label="Especialidade">
+                                            {getEspecialidadeNome(c.medico.id)}
+                                        </td>
+                                        <td data-label="Data/Hora">
+                                            {new Date(c.dataHora).toLocaleString()}
+                                        </td>
+                                        <td data-label="Ações">
+                                            <div style={{ display: 'flex', gap: '8px' }}>
+                                                <button
+                                                    className={style.btnDeleteSmall}
+                                                    onClick={() => cancelarConsulta(c.id)}
+                                                    disabled={carregando}
+                                                >
+                                                    Cancelar
+                                                </button>
+                                                <button
+                                                    className={style.btnAcessarSmall}
+                                                    onClick={() => navigate('/teleconsulta')}
+                                                    disabled={carregando}
+                                                >
+                                                    Acesse sua consulta
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
                             )}
-                            {consultas.map((c) => (
-                                <tr key={c.id}>
-                                    <td  data-label="Médico">{c.medico.usuario.nome}</td>
-                                    <td data-label="Especialidade">{getEspecialidadeNome(c.medico.id)}</td>
-                                    <td data-label="Data/Hora">
-                                        {new Date(
-                                            c.dataHora
-                                        ).toLocaleString()}
-                                    </td>
-                                    <td data-label="Ações">
-                                        <div
-                                            style={{
-                                                display: 'flex',
-                                                gap: '8px',
-                                            }}
-                                        >
-                                            <button
-                                                className={
-                                                    style.btnDeleteSmall
-                                                }
-                                                onClick={() =>
-                                                    cancelarConsulta(c.id)
-                                                }
-                                                disabled={carregando}
-                                            >
-                                                Cancelar
-                                            </button>
-                                            <button
-                                                className={
-                                                    style.btnAcessarSmall
-                                                }
-                                                onClick={() =>
-                                                    navigate('/teleconsulta')
-                                                }
-                                                disabled={carregando}
-                                            >
-                                                Acesse sua consulta
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
                         </tbody>
                     </table>
                 </div>
