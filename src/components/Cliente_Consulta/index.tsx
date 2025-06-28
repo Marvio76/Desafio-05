@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import style from './style.module.scss';
 
 interface Usuario {
@@ -44,6 +45,8 @@ interface Consulta {
 }
 
 const Consulta: React.FC = () => {
+    const navigate = useNavigate();
+
     const [consultas, setConsultas] = useState<Consulta[]>([]);
     const [medicos, setMedicos] = useState<Medico[]>([]);
     const [medicoId, setMedicoId] = useState('');
@@ -124,7 +127,7 @@ const Consulta: React.FC = () => {
         setMensagem('');
         try {
             const res = await fetch(
-                'https://telemedicina-backend.vercel.app/api/consultas/minhas', // rota correta para listar consultas do paciente
+                'https://telemedicina-backend.vercel.app/api/consultas/minhas',
                 {
                     headers: getAuthHeaders(),
                 }
@@ -160,7 +163,7 @@ const Consulta: React.FC = () => {
                 return;
             }
             const res = await fetch(
-                'https://telemedicina-backend.vercel.app/api/consultas/agendar', // rota correta para agendar consulta
+                'https://telemedicina-backend.vercel.app/api/consultas/agendar',
                 {
                     method: 'POST',
                     headers: getAuthHeaders(),
@@ -193,7 +196,7 @@ const Consulta: React.FC = () => {
         setMensagem('');
         try {
             const res = await fetch(
-                `https://telemedicina-backend.vercel.app/api/consultas/cancelar/${id}`, // rota correta para cancelar
+                `https://telemedicina-backend.vercel.app/api/consultas/cancelar/${id}`,
                 {
                     method: 'DELETE',
                     headers: getAuthHeaders(),
@@ -219,7 +222,6 @@ const Consulta: React.FC = () => {
         window.location.href = '/login';
     }
 
-    // Busca a especialidade do médico na lista de médicos pelo id
     function getEspecialidadeNome(medicoId: number) {
         const medico = medicos.find((m) => m.id === medicoId);
         return medico?.especialidade?.nome || '';
@@ -228,7 +230,11 @@ const Consulta: React.FC = () => {
     return (
         <div className={style.consultaContainer}>
             <div
-                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }}
             >
                 <h1>Consultas</h1>
                 <button className={style.btnDeleteSmall} onClick={handleLogout}>
@@ -242,7 +248,10 @@ const Consulta: React.FC = () => {
             <section className={style.section}>
                 <h2>Agendar nova consulta</h2>
                 <form onSubmit={agendarConsulta} className={style.formGroup}>
-                    <select value={medicoId} onChange={(e) => setMedicoId(e.target.value)}>
+                    <select
+                        value={medicoId}
+                        onChange={(e) => setMedicoId(e.target.value)}
+                    >
                         <option value="">Selecione o médico</option>
                         {Array.isArray(medicos) &&
                             medicos.map((m) => (
@@ -273,39 +282,69 @@ const Consulta: React.FC = () => {
 
             <section className={style.section}>
                 <h2>Consultas agendadas</h2>
-                <table className={style.table}>
-                    <thead>
-                        <tr>
-                            <th>Médico</th>
-                            <th>Especialidade</th>
-                            <th>Data/Hora</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {consultas.length === 0 && (
+                <div className={style.tableWrapper}>
+                    <table className={style.table}>
+                        <thead>
                             <tr>
-                                <td colSpan={4}>Nenhuma consulta agendada.</td>
+                                <th>Médico</th>
+                                <th>Especialidade</th>
+                                <th>Data/Hora</th>
+                                <th>Ações</th>
                             </tr>
-                        )}
-                        {consultas.map((c) => (
-                            <tr key={c.id}>
-                                <td>{c.medico.usuario.nome}</td>
-                                <td>{getEspecialidadeNome(c.medico.id)}</td>
-                                <td>{new Date(c.dataHora).toLocaleString()}</td>
-                                <td>
-                                    <button
-                                        className={style.btnDeleteSmall}
-                                        onClick={() => cancelarConsulta(c.id)}
-                                        disabled={carregando}
-                                    >
-                                        Cancelar
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {consultas.length === 0 && (
+                                <tr>
+                                    <td colSpan={4}>
+                                        Nenhuma consulta agendada.
+                                    </td>
+                                </tr>
+                            )}
+                            {consultas.map((c) => (
+                                <tr key={c.id}>
+                                    <td  data-label="Médico">{c.medico.usuario.nome}</td>
+                                    <td data-label="Especialidade">{getEspecialidadeNome(c.medico.id)}</td>
+                                    <td data-label="Data/Hora">
+                                        {new Date(
+                                            c.dataHora
+                                        ).toLocaleString()}
+                                    </td>
+                                    <td data-label="Ações">
+                                        <div
+                                            style={{
+                                                display: 'flex',
+                                                gap: '8px',
+                                            }}
+                                        >
+                                            <button
+                                                className={
+                                                    style.btnDeleteSmall
+                                                }
+                                                onClick={() =>
+                                                    cancelarConsulta(c.id)
+                                                }
+                                                disabled={carregando}
+                                            >
+                                                Cancelar
+                                            </button>
+                                            <button
+                                                className={
+                                                    style.btnAcessarSmall
+                                                }
+                                                onClick={() =>
+                                                    navigate('/teleconsulta')
+                                                }
+                                                disabled={carregando}
+                                            >
+                                                Acesse sua consulta
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </section>
         </div>
     );
