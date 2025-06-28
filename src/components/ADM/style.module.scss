@@ -1,0 +1,159 @@
+.admContainer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.table th {
+    background: #f1f1f1;
+    font-weight: bold;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.btnEdit,
+.btnDelete,
+.btnCreate {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 6px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btnEdit {
+    background: #1976d2;
+    color: #fff;
+}
+
+.btnEdit:hover {
+    background: #125ea2;
+}
+
+.btnDelete {
+    background: #e53935;
+    color: #fff;
+}
+
+.btnDelete:disabled {
+    background: #bdbdbd;
+    cursor: not-allowed;
+}
+
+.btnDelete:hover:not(:disabled) {
+    background: #b71c1c;
+}
+
+.btnCreate {
+    background: #43a047;
+    color: #fff;
+    margin-top: 12px;
+}
+
+.btnCreate:hover {
+    background: #2e7031;
+}
+
+.btnDeleteSmall {
+    background: #e53935;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 2px 8px;
+    margin-left: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btnDeleteSmall:hover {
+    background: #b71c1c;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+}
+
+.formGroup input {
+    padding: 8px 10px;
+    border: 1px solid #bdbdbd;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.disponibilidadeWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mensagem {
+    color: #e53935;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal>div,
+.modal {
+    background: #fff;
+    padding: 32px 24px;
+    border-radius: 10px;
+    min-width: 320px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.13);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+ul li {
+    margin-bottom:4px;
+}

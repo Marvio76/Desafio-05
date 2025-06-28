@@ -1,0 +1,95 @@
+.consultaContainer {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 32px 16px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.section {
+    margin-bottom: 36px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 400px;
+}
+
+.formGroup select,
+.formGroup input {
+    padding: 8px 10px;
+    border: 1px solid #bdbdbd;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.formGroup button {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+}
+
+.formGroup button:disabled {
+    background: #bdbdbd;
+    cursor: not-allowed;
+}
+
+.formGroup button:hover:not(:disabled) {
+    background: #125ea2;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+}
+
+.table th {
+    background: #f1f1f1;
+    font-weight: bold;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.btnDeleteSmall {
+    background: #e53935;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 4px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btnDeleteSmall:hover {
+    background: #b71c1c;
+}
+
+.mensagem {
+    color: #e53935;
+    font-weight: bold;
+    margin-bottom: 16px;
+}

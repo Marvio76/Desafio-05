@@ -1,0 +1,146 @@
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 50px 130px;
+  background: #2A5D59;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.row {
+  align-self: stretch;
+  height: 396px;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 167px;
+}
+
+.leftColumn {
+  width: 580px;
+  height: 396px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 50px;
+}
+
+.infoBox {
+  width: 484px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 115px;
+  align-self: stretch;
+}
+
+.titleWithIcon {
+  display: inline-flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.title {
+  width: 155px;
+  height: 17px;
+  font-size: 24px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: #F5F5F5;
+}
+
+.subtitle {
+  height: 31px;
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: #F5F5F5;
+}
+
+.linkSection {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 164px;
+  height: 81px;
+}
+
+.linkText {
+  font-size: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: #F5F5F5;
+}
+
+.linkBox {
+  width: 44px;
+  height: 44px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.iconPlaceholder {
+  width: 29.64px;
+  height: 29.46px;
+  position: absolute;
+  top: 7.64px;
+  left: 7.09px;
+  background: #F5F5F5;
+}
+
+.iconBackground {
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #1D87BD;
+}
+
+.iconLarge {
+  width: 84px;
+  height: 54px;
+}
+
+.bannerImage {
+  height: 100px;
+  align-self: stretch;
+  border-radius: 10px;
+}
+
+.servicosTitle {
+  width: 105px;
+  height: 17px;
+  font-size: 24px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: #F5F5F5;
+}
+
+.servicosList {
+  width: 122px;
+  height: 195px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.servico {
+  font-size: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: #F5F5F5;
+}
