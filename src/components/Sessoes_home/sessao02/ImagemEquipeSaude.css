@@ -1,0 +1,117 @@
+.imagem-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  border-radius: 50px;
+  overflow: hidden; /* Mantém o overflow no container principal */
+}
+
+/* Remova o clip-path daqui */
+.imagem-oval {
+  width: 100%;
+  height: auto;
+
+}
+
+.imagem {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.decoracoes {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  gap: 8px;
+}
+
+.forma {
+  background-color: #2A5D59;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 30%;
+  border-top-left-radius: 30%;
+  border-bottom-left-radius: 30%;
+}
+
+.container-fomra{
+
+  z-index: 2;
+}
+
+.forma-top{
+  background-color: #2A5D59;
+  border-bottom-right-radius: 100%;
+}
+
+.container-quem-somos{
+   background-color: #2A5D59;
+   width: 55%;
+   height: 22vh;
+   text-align: center;
+   padding: 8px;
+   margin: 10px;
+  border-radius: 20px;
+  position: absolute;
+  top: 60%;
+  color: white;
+
+}
+
+.pequena {
+  width: 50px;
+  height: 40px;
+}
+
+.grande {
+  position: absolute;
+  top: 20px;
+  left: 2px;
+  width: 100px;
+  height: 100px;
+}
+
+/* === MOBILE VERSION === */
+@media (max-width: 768px) {
+ .imagem-container{
+  height: 50vh
+ }
+  
+
+  .container-quem-somos {
+    width: 90%;
+    height: auto;
+    font-size: 0.9rem;
+    top: 50%;
+    padding: 12px;
+  }
+
+  .grande {
+    width: 70px;
+    height: 70px;
+    top: 10px;
+    left: 5px;
+  }
+
+  .pequena {
+    width: 40px;
+    height: 30px;
+  }
+  
+ .pequena-baixo{
+    position: relative;
+    bottom: -20px;
+  }
+  .decoracoes {
+    align-items: start;
+    align-self: self-start;
+    width: 100%;
+    top: 40%;
+    left: 50px;
+    gap: 30px;
+    height: 10vh;
+  }
+}

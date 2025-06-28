@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./EquipeCarrossel.scss"; 
+import "./ImagemEquipeSaude.css"
+import ImagemEquipeSaude from "./ImagemEquipeSaude";
 
 const profissionais = [
     {
@@ -36,35 +38,41 @@ const EquipeCarrossel = () => {
     const atual = profissionais[index];
 
     return (
-        <div className="carrossel-wrapper">
-            <div className="faixa-superior">
-                <div className="mensagem">Segurança começa com cuidado.</div>
-                <div className="mensagem">Segurança é ação diária.</div>
-                <div className="mensagem">Prevenção garante sua proteção.</div>
-                <div className="mensagem">Prevenir para não adoecer.</div>
-            </div>
+        <div>
+            <div className="carrossel-wrapper">
+                <div className="faixa-superior">
+                    <div className="mensagem">Segurança começa com cuidado.</div>
+                    <div className="mensagem">Segurança é ação diária.</div>
+                    <div className="mensagem">Prevenção garante sua proteção.</div>
+                    <div className="mensagem">Prevenir para não adoecer.</div>
+                </div>
 
-            <h2 className="titulo-secao">Nossa equipe conta com:</h2>
+                <h2 className="titulo-secao">Nossa equipe conta com:</h2>
 
-            <div className="card-centralizado">
-                <div className="card-imagem-container">
-                    <img src={atual.imagem} alt={atual.nome} className="imagem-fundo" />
-                    <div className="overlay-direito">
-                        <h3>{atual.cargo}</h3>
-                        <p>{atual.dias}</p>
-                        <button>Agende sua consulta</button>
+                <div className="card-centralizado">
+                    <div className="card-imagem-container">
+                        <img src={atual.imagem} alt={atual.nome} className="imagem-fundo" />
+                        <div className="overlay-direito">
+                            <h3>{atual.cargo}</h3>
+                            <p>{atual.dias}</p>
+                            <button>Agende sua consulta</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className="bolinhas-controle">
-                {profissionais.map((_, i) => (
-                    <span
-                        key={i}
-                        onClick={() => setIndex(i)}
-                        className={i === index ? "ativa" : ""}
-                    ></span>
-                ))}
+                <div className="bolinhas-controle">
+                    {profissionais.map((_, i) => (
+                        <span
+                            key={i}
+                            onClick={() => setIndex(i)}
+                            className={i === index ? "ativa" : ""}
+                        ></span>
+                    ))}
+                </div>
+            </div>
+            <div>
+               
+                <ImagemEquipeSaude src="/Sessao_01_02/imgem_medicos.png" alt="Equipe médica sorrindo no corredor" />
             </div>
         </div>
     );
