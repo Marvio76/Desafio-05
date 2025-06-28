@@ -1,0 +1,57 @@
+.Sessao06 {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: #dff6f9;
+
+  .passos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .card {
+    background-color: #007575;
+    color: white;
+    border-radius: 8px;
+    padding: 16px;
+    width: 200px;
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative; // necessário para posicionar o número
+
+    p {
+      margin-top: 30px; // espaço para o número
+      font-size: 14px;
+    }
+
+    img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+  }
+
+  .numero {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #004f4f;
+    border: 4px solid #e7fbfb;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    font-size: 14px;
+  }
+}
