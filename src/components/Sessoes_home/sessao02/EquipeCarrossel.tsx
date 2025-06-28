@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./EquipeCarrossel.scss"; 
+import "./EquipeCarrossel.scss";
+import { Link } from "react-router-dom";
 
 const profissionais = [
     {
@@ -52,7 +53,9 @@ const EquipeCarrossel = () => {
                     <div className="overlay-direito">
                         <h3>{atual.cargo}</h3>
                         <p>{atual.dias}</p>
-                        <button>Agende sua consulta</button>
+                        <Link to="/login">
+                            <button>Agende sua consulta</button>
+                        </Link>
                     </div>
                 </div>
             </div>

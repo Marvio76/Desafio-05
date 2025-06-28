@@ -26,10 +26,10 @@ function App() {
         </div>
 
         <nav className={`${styles['nav-links']} ${menuAberto ? styles.active : ''}`}>
-          <a href="#">Início</a>
+          <a href="/">Início</a>
           <a href="#">Saiba Mais</a>
-          <a href="">Cadastrar-se</a>
-          <a href="">Login</a>
+          <a href="/cadastro">Cadastrar-se</a>
+          <a href="/login">Login</a>
         </nav>
       </header>
 
