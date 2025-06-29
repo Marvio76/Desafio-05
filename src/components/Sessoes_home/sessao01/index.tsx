@@ -1,38 +1,13 @@
-import React, { useState } from 'react';
+
 import styles from './styles.module.scss';
+import Header from '../../HeadeInicial/HeaderInicial'
 function App() {
-  const [menuAberto, setMenuAberto] = useState(false);
+  
 
   return (
     <>
-      <header className={styles.header}>
-        <div className={styles.logo}>
-          <img src="/Sessao_01_02/bandeira.png" alt="Ícone da bandeira" />
-          <span>Telemedicina</span>
-        </div>
-
-        {/* Botão burger para telas pequenas */}
-        <div
-          className={`${styles.burger} ${menuAberto ? styles.open : ''}`}
-          onClick={() => setMenuAberto(!menuAberto)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && setMenuAberto(!menuAberto)}
-          aria-label="Toggle menu"
-        >
-          <div />
-          <div />
-          <div />
-        </div>
-
-        <nav className={`${styles['nav-links']} ${menuAberto ? styles.active : ''}`}>
-          <a href="/">Início</a>
-          <a href="#">Saiba Mais</a>
-          <a href="/cadastro">Cadastrar-se</a>
-          <a href="/login">Login</a>
-        </nav>
-      </header>
-
+      
+      <Header/>
       <section className={styles.hero}>
         <div className={styles['hero-text']}>
           <h1>Precisando se consultar sem sair de casa? Você está no lugar certo!</h1>

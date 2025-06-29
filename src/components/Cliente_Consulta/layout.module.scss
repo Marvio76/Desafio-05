@@ -1,0 +1,58 @@
+.stepContainer {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border: 1px solid #76D8CE; /* Cor de borda do container (padrão) */
+  border-radius: 20px; /* Para o contorno arredondado */
+  background-color: transparent; /* Fundo transparente por padrão (se não for especificado) */
+  transition: all 0.3s ease; /* Adicione uma transição para suavizar as mudanças */
+}
+
+.stepNumber {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #76D8CE; /* Cor do círculo com o número (padrão) */
+  color: #034052; /* Cor do texto do número (padrão) */
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transição para o número */
+}
+
+.stepText {
+  color: #034052; /* Cor do texto (padrão) */
+  font-weight: bold;
+  transition: color 0.3s ease; /* Transição para o texto */
+}
+
+// Estilos quando o CONTAINER (.stepContainer) estiver ativo
+.active { /* Esta é a classe para o .stepContainer quando ele está ativo */
+  border-color: #76D8CE; /* Borda do container ativo - mantendo a cor especificada */
+  background-color: #76D8CE; /* Fundo do container ativo - mantendo a cor especificada */
+}
+
+
+.active .stepNumber {
+  background-color: #F9F9F9; /* Cor de fundo do número quando o container está ativo (PRIORIZADO!) */
+  color: #26a69a; /* Cor do texto do número para ser visível no fundo claro (PRIORIZADO!) */
+}
+
+
+.active .stepText {
+  color: #034052; 
+}
+
+.form-select:disabled {
+  background-color: #e9ecef; /* Cor de fundo mais clara */
+  opacity: 0.65; /* Torna-o um pouco transparente */
+  cursor: not-allowed; /* Altera o cursor para indicar que não é clicável */
+}
+
+.mb-3 .form-label:has(+ .form-select:disabled) {
+    color: #6c757d; /* Cor mais clara para o label */
+    opacity: 0.65;
+}

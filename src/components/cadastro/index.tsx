@@ -8,6 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 interface DecodedToken {
     id: number;
     email: string;
+    nome: string
     role: string;
     iat: number;
     exp: number;
@@ -55,8 +56,8 @@ const Login: React.FC = () => {
                 localStorage.setItem('token', token); // ⬅️ SALVA O TOKEN
 
                 const decoded = decodeToken(token);
+                console.log("decoreto:", decoded)
                 const role = decoded.role?.toUpperCase();
-
                 console.log('Token decodificado:', decoded);
                 console.log('Role do usuário logado:', role);
 

@@ -1,0 +1,197 @@
+/* ======================= */
+/* HEADER                  */
+/* ======================= */
+.header {
+  background-color: #2A5D59;
+  color: white;
+  width: 100%;
+  height: 70px;
+  padding: 13px 130px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  flex-wrap: wrap;
+}
+
+.background-nav{
+  background-color: #2A5D59 !important; /* sua cor custom */
+}
+
+/* ======================= */
+/* LOGO                    */
+/* ======================= */
+.logo {
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 68px;
+    margin-right: 10px;
+  }
+
+  span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+}
+
+/* ======================= */
+/* BURGER MENU             */
+/* ======================= */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 25px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 1100;
+
+  div {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  &.open div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  &.open div:nth-child(2) {
+    opacity: 0;
+  }
+
+  &.open div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}
+
+/* ======================= */
+/* NAVEGAÇÃO               */
+/* ======================= */
+.nav {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  &.active {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 10px;
+  }
+  .avatarContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+    .avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    }
+
+    .userInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    span {
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
+    }
+
+    small {
+        font-size: 12px;
+        color: #c9f0e9;
+    }
+    }
+}
+
+
+.navCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex: 1;
+}
+
+.navRight {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ======================= */
+/* LINKS                   */
+/* ======================= */
+.links {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #a7ede2;
+  }
+}
+
+.buttonLink {
+  background-color: #d2f5fc;
+  color: #2A5D59;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+
+  &:hover {
+    background-color: #bdeaf3;
+    color: #1a3f3d;
+  }
+}
+
+/* ======================= */
+/* RESPONSIVO              */
+/* ======================= */
+@media (max-width: 768px) {
+  .burger {
+    display: flex;
+  }
+
+  .nav {
+    display: none;
+    flex-direction: column;
+    background-color: #2A5D59;
+    width: 100%;
+    padding-top: 10px;
+  }
+
+  .nav.active {
+    display: flex;
+  }
+
+  .navCenter,
+  .navRight {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+}
