@@ -1,10 +1,10 @@
 .teleconsultaContainer {
-    max-width: 500px;
+    max-width: 1200px;
     margin: 40px auto;
     padding: 32px 24px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
@@ -24,6 +24,7 @@
     display: flex;
     justify-content: center;
     gap: 18px;
+    margin-bottom: 32px;
 }
 
 .buttonGroup button {
@@ -47,4 +48,67 @@
 
 .btnVoltar:hover {
     background: #b71c1c;
+}
+
+.jogosContainer {
+    margin: 0 auto;
+    margin-top: 32px;
+    max-width: 100%;
+    padding: 0 0 24px 0;
+}
+
+.jogosContainer h2 {
+    color: #1976d2;
+    margin-bottom: 18px;
+    font-size: 1.3rem;
+}
+
+.jogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f5f7fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(25, 118, 210, 0.08);
+    padding: 16px;
+    overflow-x: auto;
+}
+
+.jogo iframe {
+    border: none;
+    border-radius: 10px;
+    background: #222;
+    max-width: 100%;
+    width: 100%;
+    min-height: 320px;
+    height: 55vw;
+    max-height: 480px;
+    box-shadow: 0 2px 12px rgba(25, 118, 210, 0.10);
+}
+
+@media (max-width: 900px) {
+    .teleconsultaContainer {
+        max-width: 98vw;
+        padding: 16px 2vw;
+    }
+    .jogo iframe {
+        height: 48vw;
+        min-height: 220px;
+        max-height: 340px;
+    }
+}
+
+@media (max-width: 600px) {
+    .jogo {
+        padding: 4px;
+    }
+    .jogo iframe {
+        height: 44vw;
+        min-height: 160px;
+        max-height: 220px;
+    }
+    .buttonGroup {
+        flex-direction: column;
+        gap: 10px;
+    }
 }

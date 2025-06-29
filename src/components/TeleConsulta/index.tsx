@@ -23,7 +23,25 @@ const TeleConsulta = () => {
                     Voltar
                 </button>
             </div>
+            <div className={style.jogosContainer}>
+            <h2>Jogo</h2>
+            <div className={style.jogo}>
+                <iframe
+                    src="https://itch.io/embed-upload/14145006?color=333333"
+                    width="1280"
+                    height="740"
+                    frameBorder="0"
+                    allowFullScreen
+                >
+                    <a href="https://addamdav.itch.io/doutor-corredor">
+                        Play Doutor Corredor on itch.io
+                    </a>
+                </iframe>
+            </div>
         </div>
+        </div>
+
+        
     );
 };
 
