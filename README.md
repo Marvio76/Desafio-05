@@ -20,6 +20,8 @@ Além das funcionalidades de agendamento, o projeto também conta com uma área 
   ├── utils             # Funções utilitárias, helpers e validações
   ├── index.css         # Estilos globais
   └── index.tsx         # Ponto de entrada da aplicação React
+```
+
 
 ---
 
