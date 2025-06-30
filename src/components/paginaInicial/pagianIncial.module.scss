@@ -1,0 +1,33 @@
+body {
+  background-color: #E7FBFB;
+}
+
+.contaner {
+  margin-top: 10%;
+}
+
+.btnDeleteSmall {
+  background-color: #dc3545;
+  border: none;
+  padding: 5px 10px;
+  color: white;
+  margin-right: 8px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+}
+
+.btnAcessarSmall {
+  background-color: #28a745;
+  border: none;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 5px;
+  font-size: 0.85rem;
+}
+
+
+@media (max-width: 768px) {
+  .contaner {
+    margin-top: 20%; // aqui você pode mudar para outro valor se quiser
+  }
+}

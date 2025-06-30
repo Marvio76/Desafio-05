@@ -8,6 +8,7 @@ import Medico from  './medico';
 import Adm from './adm';
 import TeleConsulta from './teleconsulta';
 import TeleMedico from './Telemedico';
+import Paciente from './Paciente';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/consulta" element={<Consulta />} />
+        <Route path="/Paciente" element={<Paciente />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/medico" element={<Medico />} />
         <Route path="/adm" element={<Adm />} />

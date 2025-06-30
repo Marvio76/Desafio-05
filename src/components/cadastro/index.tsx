@@ -67,7 +67,7 @@ const Login: React.FC = () => {
                     } else if (role === 'MEDICO') {
                         navigate('/medico');
                     } else if (role === 'PACIENTE' || role === 'CLIENTE') {
-                        navigate('/consulta');
+                        navigate('/Paciente');
                     } else {
                         console.warn('Role desconhecido:', role);
                         navigate('/consulta');
