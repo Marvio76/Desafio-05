@@ -11,15 +11,15 @@ Além das funcionalidades de agendamento, o projeto também conta com uma área 
 ---
 
 ## 🗂️ Estrutura do Projeto
+```bash
 /public
 /src
-  ├── assets/images       # Imagens utilizadas no projeto
-  ├── components          # Componentes reutilizáveis em React
-  ├── pages               # Páginas principais do sistema (Login, Cadastro, Home etc.)
-  ├── utils               # Funções utilitárias, helpers e validações
-  ├── index.css           # Estilos globais
-  └── index.tsx           # Ponto de entrada da aplicação React
-
+  ├── assets/images     # Imagens utilizadas no projeto
+  ├── components        # Componentes reutilizáveis em React
+  ├── pages             # Páginas principais do sistema (Login, Cadastro, Home etc.)
+  ├── utils             # Funções utilitárias, helpers e validações
+  ├── index.css         # Estilos globais
+  └── index.tsx         # Ponto de entrada da aplicação React
 
 ---
 
