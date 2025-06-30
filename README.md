@@ -1,7 +1,11 @@
 <h1 align="center">🚀 Desafio 5 - Trilhas Inova</h1>
 
 ## 📚 Sobre o Projeto
+O projeto consiste na criação de uma página web para marcação de consultas médicas online, com funcionalidades completas para tornar o processo simples e acessível tanto para pacientes quanto para profissionais da saúde.
 
+A plataforma permite que os usuários realizem o cadastro e login como paciente ou médico. Uma vez logado, o paciente pode escolher a especialidade desejada, o médico disponível e o horário da consulta, tudo de forma intuitiva e rápida.
+
+Além das funcionalidades de agendamento, o projeto também conta com uma área interativa com um jogo online, que pode ser acessado enquanto o paciente aguarda pelo atendimento do especialista, tornando a experiência mais agradável e dinâmica.
 
 
 ---
