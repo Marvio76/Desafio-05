@@ -5,7 +5,7 @@ import Header from '../HeadeInicial/HeaderInicial';
 import StepHeader from '../agendamento/StepHeader';
 import SelectInput from '../agendamento/SelectInput';
 import NavigationButtons from '../agendamento/NavigationButtons';
-import './layout.module.scss'; 
+import './layout.module.scss';
 
 interface Usuario {
     id: number;
@@ -142,58 +142,58 @@ const Consulta: React.FC = () => {
         }
     }
 
-async function agendarConsulta(
-  medicoId: string,
-  disponibilidadeId: string,
-  disponibilidades: any[],
-  setMensagem: (msg: string) => void,
-  setCarregando: (c: boolean) => void,
-  fetchConsultas: () => void,
-  limparCampos: () => void
-) {
-  if (!medicoId || !disponibilidadeId) {
-    setMensagem('Selecione o médico e o horário!');
-    return;
-  }
+    async function agendarConsulta(
+        medicoId: string,
+        disponibilidadeId: string,
+        disponibilidades: any[],
+        setMensagem: (msg: string) => void,
+        setCarregando: (c: boolean) => void,
+        fetchConsultas: () => void,
+        limparCampos: () => void
+    ) {
+        if (!medicoId || !disponibilidadeId) {
+            setMensagem('Selecione o médico e o horário!');
+            return;
+        }
 
-  setCarregando(true);
-  setMensagem('');
+        setCarregando(true);
+        setMensagem('');
 
-  try {
-    const disponibilidade = disponibilidades.find(d => d.id === Number(disponibilidadeId));
-    if (!disponibilidade) {
-      setMensagem('Horário inválido.');
-      return;
+        try {
+            const disponibilidade = disponibilidades.find(d => d.id === Number(disponibilidadeId));
+            if (!disponibilidade) {
+                setMensagem('Horário inválido.');
+                return;
+            }
+
+            const res = await fetch(
+                'https://telemedicina-backend.vercel.app/api/consultas/agendar',
+                {
+                    method: 'POST',
+                    headers: getAuthHeaders(),
+                    body: JSON.stringify({
+                        medicoId: Number(medicoId),
+                        dataHora: disponibilidade.dataHora,
+                    }),
+                }
+            );
+
+            const data = await res.json();
+            if (res.ok) {
+                setMensagem(data.message || 'Consulta agendada com sucesso!');
+                setAgendamentoConcluido(true); // ⬅️ Exibe a tela de sucesso
+                fetchConsultas();
+                limparCampos();
+            } else {
+                setMensagem(data.error || 'Erro ao agendar consulta');
+            }
+        } catch (err) {
+            console.error('Erro agendarConsulta:', err);
+            setMensagem('Erro ao agendar consulta');
+        } finally {
+            setCarregando(false);
+        }
     }
-
-    const res = await fetch(
-      'https://telemedicina-backend.vercel.app/api/consultas/agendar',
-      {
-        method: 'POST',
-        headers: getAuthHeaders(),
-        body: JSON.stringify({
-          medicoId: Number(medicoId),
-          dataHora: disponibilidade.dataHora,
-        }),
-      }
-    );
-
-    const data = await res.json();
-    if (res.ok) {
-  setMensagem(data.message || 'Consulta agendada com sucesso!');
-  setAgendamentoConcluido(true); // ⬅️ Exibe a tela de sucesso
-  fetchConsultas();
-  limparCampos();
-} else {
-      setMensagem(data.error || 'Erro ao agendar consulta');
-    }
-  } catch (err) {
-    console.error('Erro agendarConsulta:', err);
-    setMensagem('Erro ao agendar consulta');
-  } finally {
-    setCarregando(false);
-  }
-}
 
     async function cancelarConsulta(id: number) {
         if (!window.confirm('Deseja cancelar esta consulta?')) return;
@@ -233,102 +233,102 @@ async function agendarConsulta(
     const horarioOptions = disponibilidades.map((d) => ({
         value: d.id,
         label: new Date(d.dataHora).toLocaleString('pt-BR', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
         })
     }));
 
     return (
-        
+
         <>
-        <div>
-
-        
-            <Header/>
-
-           <div className="container py-5 d-flex justify-content-center align-items-center min-vh-100">
-        <div className="card shadow-sm p-4" style={{ maxWidth: '600px', width: '100%', borderColor: '#034052'}}>
-        <div className="card-body">
-          {/* Header Steps */}
-          <div className="d-flex justify-content-around mb-4">
-            <StepHeader stepNumber={1} text="Agendamento" isActive={step===1} />
-            <StepHeader stepNumber={2} text="Confirmação" isActive={step===2} />
-          </div>
+            <div>
 
 
-         {agendamentoConcluido ? (
-            <div className="text-center">
-                <div className="border rounded p-4" style={{ borderColor: '#034052', backgroundColor: '#f8f9fa' }}>
-                <i className="bi bi-check-circle" style={{ fontSize: '4rem', color: '#034052' }}></i>
-                <p className="mt-3 fs-5" style={{ color: '#034052' }}>
-                    Seu agendamento foi concluído!<br />
-                    O link da consulta será enviado no seu email!
-                </p>
+                <Header />
+
+                <div className="container py-5 d-flex justify-content-center align-items-center min-vh-100">
+                    <div className="card shadow-sm p-4" style={{ maxWidth: '600px', width: '100%', borderColor: '#034052' }}>
+                        <div className="card-body">
+                            {/* Header Steps */}
+                            <div className="d-flex justify-content-around mb-4">
+                                <StepHeader stepNumber={1} text="Agendamento" isActive={step === 1} />
+                                <StepHeader stepNumber={2} text="Confirmação" isActive={step === 2} />
+                            </div>
+
+
+                            {agendamentoConcluido ? (
+                                <div className="text-center">
+                                    <div className="border rounded p-4" style={{ borderColor: '#034052', backgroundColor: '#f8f9fa' }}>
+                                        <i className="bi bi-check-circle" style={{ fontSize: '4rem', color: '#034052' }}></i>
+                                        <p className="mt-3 fs-5" style={{ color: '#034052' }}>
+                                            Seu agendamento foi concluído!<br />
+                                            O link da consulta será enviado no seu email!
+                                        </p>
+                                    </div>
+                                </div>
+                            ) : step === 1 ? (
+                                <div className="mb-4">
+                                    <SelectInput
+                                        label="Médico"
+                                        id="medico"
+                                        options={medicoOptions}
+                                        selectedValue={medicoId}
+                                        onChange={(e) => setMedicoId(e.target.value)}
+                                        placeholder="Selecione o médico"
+                                    />
+                                    <SelectInput
+                                        label="Horário"
+                                        id="horario"
+                                        options={horarioOptions}
+                                        selectedValue={disponibilidadeId}
+                                        onChange={(e) => setDisponibilidadeId(e.target.value)}
+                                        placeholder="Selecione o horário"
+                                        disabled={!medicoId}
+                                    />
+                                </div>
+                            ) : (
+                                <div className="mb-4">
+                                    <h5>Confirmação</h5>
+                                    <p><strong>Médico:</strong> {medicos.find(m => m.id === Number(medicoId))?.usuario.nome}</p>
+                                    <p><strong>Especialidade:</strong> {getEspecialidadeNome(Number(medicoId))}</p>
+                                    <p><strong>Horário:</strong> {
+                                        disponibilidades.find(d => d.id === Number(disponibilidadeId))?.dataHora &&
+                                        new Date(disponibilidades.find(d => d.id === Number(disponibilidadeId))!.dataHora).toLocaleString('pt-BR')
+                                    }</p>
+
+                                </div>
+                            )}
+
+
+                            {/* Navigation Buttons */}
+                            <NavigationButtons
+                                step={step}
+                                setStep={setStep}
+                                onConcluir={() =>
+                                    agendarConsulta(
+                                        medicoId,
+                                        disponibilidadeId,
+                                        disponibilidades,
+                                        setMensagem,
+                                        setCarregando,
+                                        fetchConsultas,
+                                        () => {
+                                            setMedicoId('');
+                                            setDisponibilidadeId('');
+                                            setStep(1); // volta para o início
+                                        }
+                                    )
+                                }
+                                podeAvancar={!!medicoId && !!disponibilidadeId}
+                            />
+
+                        </div>
+                    </div>
                 </div>
             </div>
-            ):step === 1 ? (
-            <div className="mb-4">
-                <SelectInput
-                label="Médico"
-                id="medico"
-                options={medicoOptions}
-                selectedValue={medicoId}
-                onChange={(e) => setMedicoId(e.target.value)}
-                placeholder="Selecione o médico"
-                />
-                <SelectInput
-                label="Horário"
-                id="horario"
-                options={horarioOptions}
-                selectedValue={disponibilidadeId}
-                onChange={(e) => setDisponibilidadeId(e.target.value)}
-                placeholder="Selecione o horário"
-                disabled={!medicoId}
-                />
-            </div>
-            ) : (
-            <div className="mb-4">
-                <h5>Confirmação</h5>
-                <p><strong>Médico:</strong> {medicos.find(m => m.id === Number(medicoId))?.usuario.nome}</p>
-                <p><strong>Especialidade:</strong> {getEspecialidadeNome(Number(medicoId))}</p>
-                <p><strong>Horário:</strong> {
-                disponibilidades.find(d => d.id === Number(disponibilidadeId))?.dataHora &&
-                new Date(disponibilidades.find(d => d.id === Number(disponibilidadeId))!.dataHora).toLocaleString('pt-BR')
-                }</p>
-                
-            </div>
-            )}
-
-
-          {/* Navigation Buttons */}
-<NavigationButtons
-  step={step}
-  setStep={setStep}
-  onConcluir={() =>
-    agendarConsulta(
-      medicoId,
-      disponibilidadeId,
-      disponibilidades,
-      setMensagem,
-      setCarregando,
-      fetchConsultas,
-      () => {
-        setMedicoId('');
-        setDisponibilidadeId('');
-        setStep(1); // volta para o início
-      }
-    )
-  }
-  podeAvancar={!!medicoId && !!disponibilidadeId}
-/>
-
-        </div>
-      </div>
-    </div>
-    </div>
 
 
             {/* <div className={style.consultaContainer}>

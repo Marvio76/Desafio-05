@@ -1,5 +1,6 @@
 import React, { useState, useEffect} from "react";
 import { getUserFromToken, DecodedToken, logout } from "../../utils/auth";
+import avatarIcon from '../../assets/images/icons_avatar.png';
 
 function Header() {
   const [user, setUser] = useState<DecodedToken | null>(null);
@@ -47,13 +48,8 @@ function Header() {
                 <>
                  <ul className="navbar-nav mx-auto mb-2 mb-md-0">
                   <li className="nav-item">
-                    <a className="nav-link text-white" href="/">
+                    <a className="nav-link text-white" href="/Paciente">
                       Início
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link text-white" href="#">
-                      Sobre nós
                     </a>
                   </li>
                    <li className="nav-item">
@@ -69,7 +65,7 @@ function Header() {
                 <ul className="navbar-nav ms-auto mb-2 mb-md-0">
                     <li className="nav-item d-flex align-items-center me-2">
                         <img
-                            src="/imgs/usuario.png"
+                            src={avatarIcon}
                             alt="Avatar"
                             className="rounded-circle"
                             style={{ width: 38, height: 38, objectFit: "cover" }}
