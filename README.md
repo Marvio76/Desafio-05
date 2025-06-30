@@ -16,7 +16,6 @@ Além das funcionalidades de agendamento, o projeto também conta com uma área 
 
 ## 🎯 Funcionalidades
 
--   ✅ Funcionalidades do Projeto
 -   👥 Cadastro e Login
 -   Cadastro e login de pacientes
 
