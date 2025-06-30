@@ -17,22 +17,22 @@ Além das funcionalidades de agendamento, o projeto também conta com uma área 
 ## 🎯 Funcionalidades
 
 -   ✅ Funcionalidades do Projeto
--👥 Cadastro e Login
--Cadastro e login de pacientes
+-   👥 Cadastro e Login
+-   Cadastro e login de pacientes
 
--Cadastro e login de médicos
+-   Cadastro e login de médicos
 
--📅 Agendamento de Consultas
+-   📅 Agendamento de Consultas
 
--👨‍⚕️ Área do Médico
+-   👨‍⚕️ Área do Médico
 
--🧑‍💼 Área do Paciente
+-   🧑‍💼 Área do Paciente
 
--🎮 Jogo Interativo
+-   🎮 Jogo Interativo
 
--🔐 Segurança
+-   🔐 Segurança
 
--📱 Interface Responsiva
+-   📱 Interface Responsiva
 
 
 
