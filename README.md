@@ -22,9 +22,22 @@ Além das funcionalidades de agendamento, o projeto também conta com uma área 
   └── index.tsx         # Ponto de entrada da aplicação React
 ```
 
-
 ---
 
+## 🛠 Tecnologias Utilizadas
+
+<div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="30" alt="React logo" />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="30" alt="TypeScript logo" />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" height="30" alt="Bootstrap logo" />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg" height="30" alt="SCSS logo" />
+</div>
+
+
+---
 ## 🎯 Funcionalidades
 
 -   👥 Cadastro e Login
