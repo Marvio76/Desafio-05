@@ -8,7 +8,7 @@ const TeleConsulta = () => {
 
 
     function voltarParaConsultas() {
-        navigate('/consulta');
+        navigate('/Paciente');
     }
 
     return (

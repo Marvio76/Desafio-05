@@ -568,10 +568,10 @@ class Adm extends React.Component<{}, State> {
                         <tbody>
                             {medicos?.map((m) => (
                                 <tr key={m.id}>
-                                    <td>{m.usuario.nome}</td>
-                                    <td>{m.usuario.email}</td>
-                                    <td>{m.especialidade.nome}</td>
-                                    <td>
+                                    <td data-label="Nome">{m.usuario.nome}</td>
+                                    <td data-label="Email">{m.usuario.email}</td>
+                                    <td data-label="Especialidade">{m.especialidade.nome}</td>
+                                    <td data-label="Disponibilidades">
                                         <ul>
                                             {m.disponibilidades.map((d) => (
                                                 <li key={d.id}>
@@ -580,7 +580,7 @@ class Adm extends React.Component<{}, State> {
                                             ))}
                                         </ul>
                                     </td>
-                                    <td>
+                                    <td data-label="Ações">
                                         <button
                                             className={style.btnEdit}
                                             onClick={() => this.abrirEditarMedico(m)}

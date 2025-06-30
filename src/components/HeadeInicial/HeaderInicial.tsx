@@ -48,8 +48,13 @@ function Header() {
                 <>
                  <ul className="navbar-nav mx-auto mb-2 mb-md-0">
                   <li className="nav-item">
-                    <a className="nav-link text-white" href="/Paciente">
+                    <a className="nav-link text-white" href="/">
                       Início
+                    </a>
+                  </li>
+                   <li className="nav-item">
+                    <a className="nav-link text-white" href="/Paciente">
+                      Consultas
                     </a>
                   </li>
                    <li className="nav-item">
