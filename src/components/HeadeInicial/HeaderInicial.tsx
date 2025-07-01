@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, use} from "react";
 import { getUserFromToken, DecodedToken, logout } from "../../utils/auth";
 import avatarIcon from '../../assets/images/icons_avatar.png';
 
@@ -9,7 +9,26 @@ function Header() {
     const usuario = getUserFromToken();
     setUser(usuario);
   }, []);
-  console.log("user: ", user);
+
+  function getNavLink(role: string) {
+  switch (role) {
+      case "MEDICO":
+        return { text: "Consultas Marcadas", href: "/medico" };
+      case "ADMIN":
+        return { text: "Administrador", href: "/adm" };
+      case "PACIENTE":
+        return { text: "Agende sua Consulta", href: "/consulta" };
+      default:
+        return null;
+    }
+  }
+
+  let role = ""
+  if(user){
+    role = user.role;
+  }
+
+const navLink = getNavLink(role);
   return (
     
     <header>
@@ -52,20 +71,22 @@ function Header() {
                       Início
                     </a>
                   </li>
-                   <li className="nav-item">
-                    <a className="nav-link text-white" href="/Paciente">
-                      Consultas
-                    </a>
-                  </li>
-                   <li className="nav-item">
-                        {user.role=== "MEDICO"?
-                        <a className="nav-link text-white" href="/consulta">
-                            Ver consulta marcadas
-                        </a>
-                        :<a className="nav-link text-white" href="/consulta">
-                        Agende sua Consulta
-                        </a>}
+                  {user.role=== "PACIENTE"?
+                    <li className="nav-item">
+                      <a className="nav-link text-white" href="/Paciente">
+                        Consultas
+                      </a>
                     </li>
+                    :""
+                  }
+                  
+                   {navLink && (
+                      <li className="nav-item">
+                        <a className="nav-link text-white" href={navLink.href}>
+                          {navLink.text}
+                        </a>
+                      </li>
+                    )}
                     </ul>
                 <ul className="navbar-nav ms-auto mb-2 mb-md-0">
                     <li className="nav-item d-flex align-items-center me-2">

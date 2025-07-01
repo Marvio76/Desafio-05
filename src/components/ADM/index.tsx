@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './style.module.scss';
+import Header from '../HeadeInicial/HeaderInicial';
 
 interface Usuario {
     id: number;
@@ -435,6 +436,9 @@ class Adm extends React.Component<{}, State> {
         } = this.state;
 
         return (
+            <>
+            <Header/>
+            
             <div className={style.admContainer}>
                 <h1>Área Administrativa</h1>
 
@@ -661,6 +665,7 @@ class Adm extends React.Component<{}, State> {
                     </div>
                 )}
             </div>
+            </>
         );
     }
 }

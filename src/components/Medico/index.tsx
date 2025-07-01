@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './styles.module.scss';
+import Header from '../HeadeInicial/HeaderInicial';
 
 interface Consulta {
     id: number;
@@ -57,6 +58,8 @@ const Medico: React.FC = () => {
     }
 
     return (
+        <>
+        <Header/>
         <div className={style.medicoContainer}>
             <h1>Bem-vindo ao sistema médico</h1>
             <p>Esta é a página do médico.</p>
@@ -98,6 +101,7 @@ const Medico: React.FC = () => {
                 </table>
             )}
         </div>
+        </>
     );
 };
 

@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './style.module.scss';
+import Header from '../HeadeInicial/HeaderInicial';
 
 const TeleConsulta = () => {
     const navigate = useNavigate();
@@ -12,6 +14,8 @@ const TeleConsulta = () => {
     }
 
     return (
+        <>
+        <Header/>
         <div className={style.teleconsultaContainer}>
             <h1>TeleConsulta</h1>
             <p>Bem-vindo à sua consulta online. Clique abaixo para acessar sua videochamada.</p>
@@ -40,6 +44,7 @@ const TeleConsulta = () => {
             </div>
         </div>
         </div>
+        </>
 
         
     );

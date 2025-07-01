@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import style from './style.module.scss';
+import Header from '../HeadeInicial/HeaderInicial';
 
 const TeleMedico = () => {
     const navigate = useNavigate();
@@ -12,6 +13,8 @@ const TeleMedico = () => {
     }
 
     return (
+        <>
+        <Header/>
         <div className={style.teleconsultaContainer}>
             <h1>TeleConsulta</h1>
             <p>Bem-vindo à sua consulta online. Clique abaixo para acessar sua videochamada.</p>
@@ -24,6 +27,7 @@ const TeleMedico = () => {
                 </button>
             </div>
         </div>
+        </>
     );
 };
 
